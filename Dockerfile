@@ -28,7 +28,7 @@ RUN mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale
 EXPOSE 80
 EXPOSE 10000
 
-RUN echo "/root/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055 & /root/tailscale up --hostname=vpn-sydney --advertise-exit-node && sleep infinity" > /root/start.sh
+RUN echo "while true; do /root/tailscaled --tun=userspace-networking --socks5-server=localhost:1055 --outbound-http-proxy-listen=localhost:1055; sleep 1; done & while true; do /root/tailscale up --hostname=vpn-tokyo --advertise-exit-node; sleep 1; done && sleep infinity" > /root/start.sh
 RUN chmod +x /root/start.sh
 
 CMD ["/root/start.sh"]
